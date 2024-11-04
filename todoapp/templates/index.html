@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="{% static "js/script.js" %}"></script>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+</head>
+<body>
+    <main>
+        <header>
+            <h1 class="text-h1">Todo</h1>
+            <button class="theme" id="theme"><img src="{% static "img/icon-sun.svg" %}" alt=""></button>
+        </header>
+
+        <form action="{% url "index" %}" method='post' id="newtodo">
+            {% csrf_token %}
+            <article class="todo">
+                <div class="check"></div>
+                <input type="text" name="todo" id="todo" value="">
+            </article>
+        </form>
+
+        <section class="todos" id="todos">
+            {% for todo in todos %}
+                <div class="todo">
+                    <a href="{% url "update" todo.todo_id %}"><div class="check"></div></a>
+                    {{todo.task}} 
+                    <span>{{todo.checked}}</span> 
+                    <a class="delete" href="{% url "delete" todo.todo_id %}">
+                        <img src="{% static "img/icon-cross.svg" %}" alt="">
+                    </a>
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+
+  
+
+  <!-- Add dynamic number --> items left
+
+  All
+  Active 
+  Completed
+
+  Clear Completed
+
+  Drag and drop to reorder list
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+</body>
+</html>
+
+
