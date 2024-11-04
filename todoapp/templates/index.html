@@ -4,55 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <title>Document</title>
     <script defer src="{% static "js/script.js" %}"></script>
     <link rel="stylesheet" href="{% static "css/style.css" %}">
 </head>
 <body>
-    <main>
-        <header>
+    <main class="column">
+        <header class="row">
             <h1 class="text-h1">Todo</h1>
             <button class="theme" id="theme"><img src="{% static "img/icon-sun.svg" %}" alt=""></button>
         </header>
 
-        <form action="{% url "index" %}" method='post' id="newtodo">
+        <form action="{% url "index" %}" method='post' id="newtodo" class="newtodo">
             {% csrf_token %}
-            <article class="todo">
+            <div class="newtodo__group row">
                 <div class="check"></div>
-                <input type="text" name="todo" id="todo" value="">
-            </article>
+                <input class="input text-body" type="text" name="todo" id="todo" value="" placeholder="Create a new todo...">
+            </div>
         </form>
 
         <section class="todos" id="todos">
-            {% for todo in todos %}
-                <div class="todo">
-                    <a href="{% url "update" todo.todo_id %}"><div class="check"></div></a>
-                    {{todo.task}} 
-                    <span>{{todo.checked}}</span> 
-                    <a class="delete" href="{% url "delete" todo.todo_id %}">
-                        <img src="{% static "img/icon-cross.svg" %}" alt="">
-                    </a>
+            {% if not todos %}
+                <div class="not-todos">
+                    You don't hava any TODO yet Xd
                 </div>
-            {% endfor %}
+            {% else %}
+                {% for todo in todos %}
+                    {% include "snippets/todo.html" %}
+                {% endfor %}
+            {% endif %}  
+            <section class="menu row text-menu">
+                <div class="left">{{left}}</div>
+                <article class="filter-menu row">
+                    <input type="radio" name='filter' id="all" checked>
+                    <label for="all">All</label>
+                    <input type="radio" name='filter' id="active">
+                    <label for="active">Active</label>
+                    <input type="radio" name='filter' id="completed">
+                    <label for="completed">completed</label>
+                </article>
+                <button type="button" class="clear" id="clear">Clear completed</button>
+            </section>                      
         </section>
-    </main>
+        
+        <div class="drag text-menu">Drag and drop to reorder list</div>
+        
+    </main>  
 
   
 
-  <!-- Add dynamic number --> items left
-
-  All
-  Active 
-  Completed
-
-  Clear Completed
-
-  Drag and drop to reorder list
-
-  <div class="attribution">
+  {% comment %} <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
     Coded by <a href="#">Your Name Here</a>.
-  </div>
+  </div> {% endcomment %}
 </body>
 </html>
 

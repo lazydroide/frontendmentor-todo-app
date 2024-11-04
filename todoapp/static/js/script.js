@@ -9,11 +9,6 @@ inputTodo.addEventListener('change', (e) => {
     console.log('change')
     hasChanged = true;
     e.preventDefault();
-//     e.preventDefault()
-//     if (e.target.value !== '') {  
-//         console.log('dentro')      
-//         todoForm.submit();
-//     }
 })
 
 inputTodo.addEventListener('keyup', (e) => {

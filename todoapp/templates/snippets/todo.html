@@ -1,0 +1,13 @@
+{% load static %}
+
+<article class="todo row">
+    <a href="{% url "update" todo.todo_id %}">
+        <div class="check-border">
+            <div class="check" {% if todo.checked %}checked{% endif %}></div>
+        </div>
+    </a>
+    <div class="task text-body">{{todo.task}} </div>
+    <a class="delete hidden" href="{% url "delete" todo.todo_id %}">
+        <img src="{% static "img/icon-cross.svg" %}" alt="">
+    </a>
+</article>

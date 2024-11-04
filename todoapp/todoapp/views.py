@@ -8,7 +8,8 @@ def index(request):
         Todo.objects.create(task=request.POST['todo'])
         return redirect('index')
     return render(request, 'index.html', {
-        'todos': Todo.objects.all()
+        'todos': Todo.objects.all(),
+        'left': '0 items left'
     })
 
 def update(request, pk):
