@@ -38,13 +38,12 @@
             {% endif %}  
             <section class="menu row text-menu">
                 <div class="left">{{left}}</div>
-                <article class="filter-menu row">
-                    <input type="radio" name='filter' id="all" checked>
-                    <label for="all">All</label>
-                    <input type="radio" name='filter' id="active">
-                    <label for="active">Active</label>
-                    <input type="radio" name='filter' id="completed">
-                    <label for="completed">completed</label>
+                <article class="filter-menu">
+                    <fieldset id='filter' class='row'>
+                        <button class="btn" type="button" state='default' id="all">all</button>
+                        <button class="btn" type="button" state='clicked' id="active">active</button>
+                        <button class="btn" type="button" state='default' id="completed">completed</button>
+                    </fieldset>
                 </article>
                 <button type="button" class="clear" id="clear">Clear completed</button>
             </section>                      

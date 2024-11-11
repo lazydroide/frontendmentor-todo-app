@@ -2,7 +2,7 @@
 
 <article class="todo row">
     <a href="{% url "update" todo.todo_id %}">
-        <div class="check-border">
+        <div class="check-border" {% if todo.checked %}checked{% endif %}>
             <div class="check" {% if todo.checked %}checked{% endif %}></div>
         </div>
     </a>

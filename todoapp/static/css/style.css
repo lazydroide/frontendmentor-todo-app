@@ -3,6 +3,7 @@
 *::before, 
 *::after{
     box-sizing: border-box;
+    /* outline: 1px solid lime; */
 }
  
 *{
@@ -71,8 +72,10 @@ img, picture, svg, video, canvas{
 
     font-family: 'Josefin Sans', sans-serif;
     color: var(--clr-text-900);
+    --fs-12: 0.75rem;
     --fs-14: 0.875rem;
     --fs-18: 1.125rem;
+    --fs-27: 1.6875rem;
     --fs-40: 2.5rem;
 
     --fw-400: 400;
@@ -129,6 +132,7 @@ img, picture, svg, video, canvas{
     background-color: var(--clr-todo-bg);
     border-bottom: 2px solid var(--clr-text-300);
     gap: 1.5rem;
+    align-items: center;
 
     &:hover {
         cursor: pointer;
@@ -144,8 +148,8 @@ img, picture, svg, video, canvas{
     }
 
     .check-border {
-        width: 24px;
-        height: 24px;
+        width: 25px;
+        height: 25px;
         background: var(--_border-color);
         display: grid;
         place-content: center;
@@ -154,14 +158,22 @@ img, picture, svg, video, canvas{
         &:hover {
             background: var(--gradient);
         }
+
+        &[checked] {
+            background: var(--gradient);
+        }
     }
 
     .check {        
-        width: 20px;
-        height: 20px;
+        width: 21px;
+        height: 21px;
         border-radius: 50%;
         background-color: var(--clr-todo-bg);  
 
+       
+        &[checked] {
+            background: var(--gradient);
+        }   
         
     }
 
@@ -175,6 +187,9 @@ img, picture, svg, video, canvas{
 }
 
 
+/* ============== */
+
+
 body {
     display: grid;
     place-content: center;
@@ -183,7 +198,7 @@ body {
 
 body::before {
     width: 100%;
-    height: 21vw;
+    height: 300px;
     position: absolute;
     content: "";
     background-image: var(--bg-img);
@@ -228,9 +243,9 @@ header {
         gap: 1.5rem;
 
         .check {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--clr-text-300);
+            width: 25px;
+            height: 25px;
+            border: 2px solid var(--clr-text-400);
             border-radius: 50%;
         }
 
@@ -258,7 +273,6 @@ header {
 
 .todos {
     border-radius: var(--radius-4);
-    overflow: hidden;
 
     .not-todos {
         width: 100%;
@@ -279,20 +293,31 @@ header {
         
     }
 
-    .filter-menu {
-        gap: 1.25rem;
-        color: var(--clr-text-400);
+    .filter-menu {                
+        background-color: var(--clr-todo-bg);              
 
-        input[type="radio"]{
-            display: none;
+        fieldset {
+            border: none;
+            gap: 1.25rem;  
+
+            .btn {
+                appearance: none;
+                border: none;
+                background-color: transparent;
+                color: var(--clr-text-400);  
+                text-transform: capitalize;              
+            }
+
+            .btn:hover{
+                color: var(--clr-text-900);
+                cursor: pointer;
+            }
+
+            .btn[state="clicked"] {
+                color: var(--clr-bright-blue);
+            }
         }
-        input[type="radio"]:checked + label{
-            color: var(--clr-bright-blue);
-        }
-        label:hover{
-            color: var(--clr-text-900);
-            cursor: pointer;
-        }
+        
         
     }
 
@@ -300,6 +325,10 @@ header {
         border: none;
         background-color: transparent;
         color: var(--clr-text-400);
+
+        &:hover {
+            color: var(--clr-text-600);
+        }
     }
     
 }
@@ -309,6 +338,51 @@ header {
     padding-top: 1.75rem;
     text-align: center;
 }
+
+
+@media (max-width: 40rem) {
+
+    /* typography classes */
+    .text-h1 {
+        font-size: var(--fs-27);
+    }
+
+    .text-body {
+        font-size: var(--fs-12);
+    }
+
+    .text-menu {
+        font-size: var(--fs-12);
+        letter-spacing: -0.015em;   
+    }
+    
+    .menu {
+      position: relative;
+
+      .filter-menu {
+        position: absolute;
+        left: 0;
+        top: calc(100% + 1rem);
+        width: 100%;
+        height: 100%;
+
+        fieldset {
+            height: 100%;
+            justify-content: center;
+            gap: 3rem;
+            align-items: center;
+        }        
+      }
+
+      
+    }
+
+    .drag {
+        margin-top: calc(2rem + 28px);
+      }
+    
+    
+  }
 
 .attribution { font-size: 11px; text-align: center; }
 .attribution a { color: hsl(228, 45%, 44%); }
