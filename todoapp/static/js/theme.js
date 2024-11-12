@@ -1,4 +1,5 @@
 const themeBtn = document.getElementById('theme');
+const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
 
 
 const storageTheme = (value) => {
@@ -6,8 +7,16 @@ const storageTheme = (value) => {
 }
   
 const retrieveTheme = () => {
-    const theme = localStorage.getItem('todoapp_theme');
-    document.documentElement.className = theme;
+    const theme = localStorage.getItem('todoapp_theme') ;
+    if (theme) { 
+      document.documentElement.className = theme; 
+    } else {
+      if (darkThemeMq.matches) {
+        document.documentElement.className = 'dark';
+      } else {
+        document.documentElement.className = 'light';
+      }
+    } 
 }
 
 
@@ -24,3 +33,14 @@ themeBtn.addEventListener('click', () => {
 });
 
 document.onload = retrieveTheme();
+
+
+
+// change theme when system preference change
+// darkThemeMq.addEventListener('change', e => {
+//   if (e.matches) {
+//     document.documentElement.className = 'dark';
+//   } else {
+//     document.documentElement.className = 'light';
+//   }
+// });
