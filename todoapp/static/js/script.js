@@ -1,23 +1,11 @@
 const inputTodo = document.getElementById('todo')
 const todoForm = document.getElementById('newtodo')
 
-const todos = document.getElementById('todos')
-
 const filter = document.getElementById('filter');
 const filterBtns = document.querySelectorAll('.btn');
 
-const themeBtn = document.getElementById('theme');
-
 var hasChanged = false;
 
-const storageTheme = (value) => {
-  localStorage.setItem('todoapp_theme', value);
-}
-
-const retrieveTheme = () => {
-  const theme = localStorage.getItem('todoapp_theme');
-  document.documentElement.className = theme;
-}
 
 const resetButtonStates = () => {
   filterBtns.forEach(button => {
@@ -52,13 +40,4 @@ todoForm.addEventListener('submit', (e) => {
     if (hasChanged) { todoForm.submit() }
 })
 
-
-themeBtn.addEventListener('click', () => {
-  if (document.documentElement.className === 'dark') {
-    document.documentElement.className = 'light';
-    storageTheme('light');  
-  } else {
-    document.documentElement.className = 'dark';
-    storageTheme('dark'); 
-  }  
-})
+//  [ ] filter

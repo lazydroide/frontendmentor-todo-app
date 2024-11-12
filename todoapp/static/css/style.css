@@ -52,7 +52,6 @@ img, picture, svg, video, canvas{
     --gradient: linear-gradient(90deg, var(--clr-gradient-star), var(--clr-gradient-end));
 
     font-family: 'Josefin Sans', sans-serif;
-    /* color: var(--clr-text-900); */
     --fs-12: 0.75rem;
     --fs-14: 0.875rem;
     --fs-18: 1.125rem;
@@ -66,17 +65,11 @@ img, picture, svg, video, canvas{
     --radius-8: 8px;
 
     /* [ ] 2px dark 1px light */
+    /* [ ] box shadow */
+    /* [ ] border bg-main color when mobile */
 }
 
 .dark {
-    /* --clr-very-dark-blue: hsl(235, 21%, 11%);
-    --clr-very-dark-desaturated-blue: hsl(235, 24%, 19%);
-    --clr-light-grayish-blue: hsl(234, 39%, 85%);
-    --clr-light-grayish-blue-hover: hsl(236, 33%, 92%);
-    --clr-dark-grayish-blue: hsl(234, 11%, 52%);
-    --clr-very-dark-grayish-blue: hsl(233, 14%, 35%);
-    --clr-very-dark-grayish-blue2: hsl(237, 14%, 26%); */
-
     --clr-body-bg: hsl(235, 21%, 11%);
     --clr-todo-bg: hsl(235, 24%, 19%);
 
@@ -87,13 +80,6 @@ img, picture, svg, video, canvas{
     --clr-text-filter-hover: #FFFFFF;
 
     --clr-divider: hsl(233, 14%, 35%);
-
-    /* --clr-text-900: #FFFFFF;
-    --clr-text-700: hsl(236, 33%, 92%);
-    --clr-text-600: hsl(234, 39%, 85%);
-    --clr-text-400: hsl(234, 11%, 52%);
-    --clr-text-300: hsl(233, 14%, 35%);
-    --clr-text-200: hsl(237, 14%, 26%); */
 
     --bg-img: url(../img/bg-desktop-dark.jpg);
     --icon: url(../img/icon-sun.svg);
@@ -109,15 +95,7 @@ img, picture, svg, video, canvas{
     --clr-text-filter: hsl(236, 9%, 61%);  
     --clr-text-filter-hover: hsl(235, 19%, 35%);
 
-    --clr-divider: hsl(233, 11%, 84%);
-
-    /* - Very Light Gray: hsl(0, 0%, 98%) */
-    /* - Very Light Grayish Blue: hsl(236, 33%, 92%) */
-    /* - Light Grayish Blue: hsl(233, 11%, 84%)
-    - Dark Grayish Blue: hsl(236, 9%, 61%)
-    - Very Dark Grayish Blue: hsl(235, 19%, 35%) */
-
-    
+    --clr-divider: hsl(233, 11%, 84%);    
 
     --bg-img: url(../img/bg-desktop-light.jpg);
     --icon: url(../img/icon-moon.svg);
@@ -230,6 +208,10 @@ img, picture, svg, video, canvas{
             text-transform: capitalize;
         }
     }
+
+    &.is-dragging * {
+        opacity: 0;
+    }
 }
 
 
@@ -274,7 +256,6 @@ header {
         background: var(--icon) no-repeat;
         cursor: pointer;        
     }
-
 }
 
 
@@ -311,9 +292,7 @@ header {
                 outline: none;
                 background-color: transparent;
             }
-
-        }
-     
+        }     
     }
 }
 
@@ -360,9 +339,7 @@ header {
             .btn[state="clicked"] {
                 color: var(--clr-bright-blue);
             }
-        }
-        
-        
+        }  
     }
 
     .clear {
@@ -421,8 +398,7 @@ header {
             width: 16px;
             height: 16px;
         }
-    }
-    
+    }    
     
     /* ============== */
 
@@ -444,9 +420,7 @@ header {
         padding-block: 2.5rem;
         padding-inline: 1.5rem;
         width: 100vw;
-    }
-    
-       
+    }  
     
     .newtodo {
         padding-block: 1rem;
@@ -484,9 +458,9 @@ header {
     .drag {
         margin-top: calc(2rem + 28px);
       }
-    
-    
   }
 
 .attribution { font-size: 11px; text-align: center; }
 .attribution a { color: hsl(228, 45%, 44%); }
+
+/* [ ] afinar maquetado con figma */

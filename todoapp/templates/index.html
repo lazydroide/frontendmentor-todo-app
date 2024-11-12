@@ -10,6 +10,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static "./images/favicon-32x32.png" %}">
     <title>Document</title>
     <script defer src="{% static "js/script.js" %}"></script>
+    <script defer src="{% static "js/drag.js" %}"></script>
+    <script defer src="{% static "js/theme.js" %}"></script>
     <link rel="stylesheet" href="{% static "css/style.css" %}">
 </head>
 <body>
@@ -28,15 +30,17 @@
         </form>
 
         <section class="todos" id="todos">
-            {% if not todos %}
-                <div class="not-todos">
-                    You don't hava any TODO yet Xd
-                </div>
-            {% else %}
-                {% for todo in todos %}
-                    {% include "snippets/todo.html" %}
-                {% endfor %}
-            {% endif %}  
+            <section id="todos-container">
+                {% if not todos %}
+                    <div class="not-todos">
+                        You don't hava any TODO yet Xd
+                    </div>
+                {% else %}
+                    {% for todo in todos %}
+                        {% include "snippets/todo.html" %}
+                    {% endfor %}
+                {% endif %}
+            </section> 
             <section class="menu row text-menu">
                 <div class="left">{{left}}</div>
                 <article class="filter-menu">
