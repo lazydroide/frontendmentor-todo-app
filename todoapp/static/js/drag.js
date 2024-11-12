@@ -26,4 +26,5 @@ todosContainer.addEventListener('dragover', setPosition)
 
 
 
-//  [ ] drag and drop
+//  [x] drag and drop
+//  [ ] drag and drop mobile
