@@ -1,12 +1,13 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static "./images/favicon-32x32.png" %}">
     <title>Document</title>
     <script defer src="{% static "js/script.js" %}"></script>
     <link rel="stylesheet" href="{% static "css/style.css" %}">
@@ -15,7 +16,7 @@
     <main class="column">
         <header class="row">
             <h1 class="text-h1">Todo</h1>
-            <button class="theme" id="theme"><img src="{% static "img/icon-sun.svg" %}" alt=""></button>
+            <button class="theme" id="theme"></button>
         </header>
 
         <form action="{% url "index" %}" method='post' id="newtodo" class="newtodo">
@@ -40,9 +41,9 @@
                 <div class="left">{{left}}</div>
                 <article class="filter-menu">
                     <fieldset id='filter' class='row'>
-                        <button class="btn" type="button" state='default' id="all">all</button>
-                        <button class="btn" type="button" state='clicked' id="active">active</button>
-                        <button class="btn" type="button" state='default' id="completed">completed</button>
+                        <button class="btn text-filter" type="button" state='default' id="all">all</button>
+                        <button class="btn text-filter" type="button" state='clicked' id="active">active</button>
+                        <button class="btn text-filter" type="button" state='default' id="completed">completed</button>
                     </fieldset>
                 </article>
                 <button type="button" class="clear" id="clear">Clear completed</button>
