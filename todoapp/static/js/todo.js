@@ -14,3 +14,5 @@ todoForm.addEventListener('submit', (e) => {
     if (hasChanged) { todoForm.submit() }
 })
 
+// [ ] cambiar codigo para que el check se haga mediante js y envie una peticion al servidor para actualizar estado en la base de datos
+

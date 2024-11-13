@@ -53,4 +53,5 @@ filter.addEventListener('click', (e) => {
 })
 
 //  [x] filter
+//  [ ] clear button
 document.onload = updateLeft();

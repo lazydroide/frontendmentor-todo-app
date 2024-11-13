@@ -14,7 +14,6 @@ const setPosition = (e) => {
 }
 
 const setPositionMobile = (e) => {
-    e.preventDefault();
     const draggingTodo = todosContainer.querySelector('.is-dragging');
     const otherTodos = [...todosContainer.querySelectorAll('.todo:not(.is-dragging)')];
     
@@ -33,8 +32,7 @@ draggables.forEach( todo => {
         todo.classList.remove('is-dragging');
     })
 
-    todo.addEventListener('touchstart', (e) => {        
-        e.preventDefault();
+    todo.addEventListener('touchstart', (e) => { 
         todo.classList.add('is-dragging');
     })
     todo.addEventListener('touchend', () => {
@@ -50,4 +48,8 @@ todosContainer.addEventListener('touchmove', setPositionMobile)
 
 
 //  [x] drag and drop
-//  [ ] drag and drop mobile e.clientY en mobile
+//  [x] drag and drop mobile e.clientY en mobile
+//  [ ] drag and drop mobile checks not working (preventdefault vs long touch)
+//  [ ] enviar actualizacion de posicion al servidor para que la guarde y la muestre correctamente en reload.
+//      new position = float entre dos posiciones o el anterior -/+ 1
+//  [ ] store todos as a json file in db. 

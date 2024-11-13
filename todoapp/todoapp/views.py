@@ -23,3 +23,5 @@ def delete(request, pk):
     print(pk)
     Todo.objects.filter(todo_id=pk).delete()
     return redirect('index')
+
+# [ ] implement messages

@@ -168,6 +168,19 @@ img, picture, svg, video, canvas{
         }
     }
 
+    &[checked] {
+        .check-border {
+            background: var(--gradient);
+        }
+
+        .check {
+            background: var(--gradient);
+            background-image: url(../img/icon-check.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    }
+
     .check-border {
         width: 25px;
         height: 25px;
@@ -180,9 +193,9 @@ img, picture, svg, video, canvas{
             background: var(--gradient);
         }
 
-        &[checked] {
+        /* &[checked] {
             background: var(--gradient);
-        }
+        } */
     }
 
     .check {        
@@ -192,12 +205,12 @@ img, picture, svg, video, canvas{
         background-color: var(--clr-todo-bg);  
 
        
-        &[checked] {
+        /* &[checked] {
             background: var(--gradient);
             background-image: url(../img/icon-check.svg);
             background-position: center;
             background-repeat: no-repeat;
-        }   
+        }    */
         
     }
 

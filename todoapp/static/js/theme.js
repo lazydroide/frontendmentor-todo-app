@@ -28,8 +28,6 @@ themeBtn.addEventListener('click', () => {
       document.documentElement.className = 'dark';
       storageTheme('dark'); 
     }  
-  
-    // [ ] dark or nothing?
 });
 
 document.onload = retrieveTheme();
