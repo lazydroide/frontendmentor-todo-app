@@ -67,6 +67,8 @@ img, picture, svg, video, canvas{
     /* [ ] 2px dark 1px light */
     /* [ ] box shadow */
     /* [ ] border bg-main color when mobile */
+    /* [x] la cruz cuando se crea js queda oculta y luego al mostrarse cambia tamaña check */
+
 }
 
 .dark {
@@ -141,7 +143,7 @@ img, picture, svg, video, canvas{
 }
 
 .hidden {
-    display: none;
+    visibility: hidden;
 }
 
 
@@ -160,7 +162,7 @@ img, picture, svg, video, canvas{
         cursor: pointer;
         
         .delete {
-            display: block;
+            visibility: visible;
 
             img {
                 filter: brightness(0) saturate(100%) invert(53%) sepia(16%) saturate(468%) hue-rotate(196deg) brightness(87%) contrast(86%);
@@ -215,7 +217,7 @@ img, picture, svg, video, canvas{
     }
 
     .task {
-        width: 100%;
+        flex-grow: 2;
 
         &::first-letter {
             text-transform: capitalize;
