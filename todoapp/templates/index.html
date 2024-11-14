@@ -22,7 +22,7 @@
             <button class="theme" id="theme"></button>
         </header>
 
-        <form action="{% url "index" %}" method='post' id="newtodo" class="newtodo">
+        <form action="{% url "insert" %}" method='get' id="newtodo" class="newtodo">
             {% csrf_token %}
             <div class="newtodo__group row">
                 <div class="check"></div>
