@@ -1,4 +1,4 @@
-import json
+
 
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -35,24 +35,21 @@ def update(request, pk):
 
 def positions(request):
     if request.method == 'POST':
-        _positions = json.loads(request.body)
-        
-        if(updatePositions(_positions)):
+        if(updatePositions(request)):
             return JsonResponse({'status': True}, status='200') 
     
     return JsonResponse({'status': False}, status='404') 
 
 
 def delete(request, pk):
-    if request.method == 'POST':
-        _positions = json.loads(request.body)
-        print(_positions)
-    _delete = Todo.objects.filter(todo_id=pk).delete()
-    if _delete[0]:
-        return JsonResponse({'status': True}, status='200') 
-    else:
-        # if something goes wrong render de index and send a message
-        return JsonResponse({'status': False}, status='404') 
+    if request.method == 'POST':        
+        _delete = Todo.objects.filter(todo_id=pk).delete()
+        if _delete[0]:
+            if(updatePositions(request)):
+                return JsonResponse({'status': True}, status='200') 
+    
+    # if something goes wrong render de index and send a message
+    return JsonResponse({'status': False}, status='404') 
 
 
 # [ ] implement messages

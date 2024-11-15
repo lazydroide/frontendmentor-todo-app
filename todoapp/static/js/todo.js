@@ -46,7 +46,16 @@ const generateTodo = (task, id) => {
 }
 
 const deleteTodo = (todo, url, id) => {
-    fetch(url + 'delete/' +  id)
+    fetch(url + 'delete/' +  id,
+        {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: getPositions()
+        })
             .then(response => response.json())
             .then(response => {
                 if (response.status === true){
