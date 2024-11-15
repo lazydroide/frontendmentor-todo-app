@@ -24,5 +24,6 @@ urlpatterns = [
     path("insert", views.insert, name='insert'),
     path("delete/<pk>", views.delete, name='delete'),
     path("update/<pk>", views.update, name='update'),
+    path("positions", views.positions, name='positions'),
 
 ]
