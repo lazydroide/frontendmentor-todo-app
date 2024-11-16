@@ -1,10 +1,34 @@
 const inputTodo = document.getElementById('todo');
 const todoForm = document.getElementById('newtodo');
-const todosContainer = document.getElementById('todos-container');
 
+const todosContainer = document.getElementById('todos-container');
 const todosElements = todosContainer.querySelectorAll('.todo'); 
 
+const messagesContainer = document.getElementById('messages');
+
 const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+
+const generateMessage = (msg) => {
+    const message = document.createElement('article');
+    message.classList.add('message');
+    message.classList.add('row');
+    message.innerHTML = `<p class="text-message text-body">${msg}</p><div class="dismiss">X</div>`;
+    
+    message.addEventListener('click', (e) => {
+        if (e.target.className.includes('dismiss')) {
+        e.target.parentNode.remove();
+        }
+    })
+    
+    message.addEventListener('touchstart', (e) => {
+        if (e.target.className.includes('dismiss')) {
+        e.target.parentNode.remove();
+        }
+    })
+      
+    messagesContainer.appendChild(message);
+}
 
 const generateTodo = (task, id) => {
     const newTodo = document.createElement('article');
@@ -60,11 +84,12 @@ const deleteTodo = (todo, url, id) => {
             .then(response => {
                 if (response.status === true){
                     todo.remove();
+                    generateMessage('Todo borrado!!!')
                     if (todosContainer.querySelectorAll('.todo').length === 0) {
                         todosContainer.innerHTML = `<div class="not-todos">You don't hava any TODO yet Xd</div>`
                     }
                 }else{
-                    console.log(response)
+                    generateMessage('Something go wrong!');
                 }  
             })    
 }
@@ -80,13 +105,15 @@ const updateTodo = (todo, url, id) => {
                         todo.removeAttribute('checked')
                     }
                 }else{
-                    console.log(response)
+                    generateMessage('Something go wrong!');
                 }  
             })    
 }
 
 todoForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (inputTodo.value.trim() === '') { return };
+
     fetch(todoForm.action + '?task=' + inputTodo.value)
     .then(response => response.json())
     .then(response => {
@@ -99,7 +126,7 @@ todoForm.addEventListener('submit', (e) => {
             todosContainer.appendChild(generateTodo(inputTodo.value, response.id));
             inputTodo.value = '';
         }else{
-            console.log(response)
+            generateMessage('Something go wrong!');
         }  
     })  
 })
@@ -150,7 +177,7 @@ const updatePosition = (e) => {
             console.log(response)
 
         } else {
-            console.log(response)
+            generateMessage('Something go wrong!');
         }
     });
 }
@@ -208,7 +235,10 @@ todosContainer.addEventListener('dragover', (e) => {
 
 // [x] cambiar codigo para que el check se haga mediante js y envie una peticion al servidor para actualizar estado en la base de datos
 // [ ] eliminar console.logs
-// [ ] eliminar drag.js
+// [x] eliminar drag.js
+// [ ] funcion aplicar listeners
+// [x] listeners en mensajes y tactil messages
+// [x] aplicar css a mobile messages
 
 
 
@@ -216,4 +246,3 @@ todosContainer.addEventListener('dragover', (e) => {
 //  [x] drag and drop mobile e.clientY en mobile
 //  [x] drag and drop mobile checks not working (preventdefault vs long touch)
 //  [x] enviar actualizacion de posicion al servidor para que la guarde y la muestre correctamente en reload.
-//      new position = float entre dos posiciones o el anterior -/+ 1

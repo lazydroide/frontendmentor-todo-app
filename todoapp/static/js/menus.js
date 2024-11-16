@@ -2,6 +2,7 @@ const filter = document.getElementById('filter');
 const filterBtns = document.querySelectorAll('.btn');
 
 const todos = document.querySelectorAll('.todo');
+const messages = document.querySelectorAll('.message');
 
 const resetButtonStates = () => {
   filterBtns.forEach(button => {
@@ -50,8 +51,25 @@ filter.addEventListener('click', (e) => {
       resetButtonStates();
       e.target.setAttribute('state', 'clicked');
     } 
+});
+
+messages.forEach(message => {
+  message.addEventListener('click', (e) => {
+    if (e.target.className.includes('dismiss')) {
+      e.target.parentNode.remove();
+    }
+  })
+
+  message.addEventListener('touchstart', (e) => {
+    if (e.target.className.includes('dismiss')) {
+      e.target.parentNode.remove();
+    }
+  })
 })
 
+// menu
 //  [x] filter
+//  [ ] visibility vs display:none
+//  [ ] listener para mobile
 //  [ ] clear button
 document.onload = updateLeft();

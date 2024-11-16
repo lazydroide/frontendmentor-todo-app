@@ -54,7 +54,13 @@
             </section>                      
         </section>
         
-        <div class="drag text-menu">Drag and drop to reorder list</div>
+        <div class="drag text-menu">Drag and drop to reorder list</div>        
+
+        <section class="messages column" id="messages">
+            {% for message in messages %}
+                {% include "snippets/message.html" %}
+            {% endfor %}
+        </section>
         
     </main>  
 

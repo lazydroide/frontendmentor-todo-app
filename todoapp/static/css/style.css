@@ -68,6 +68,7 @@ img, picture, svg, video, canvas{
     /* [ ] box shadow */
     /* [ ] border bg-main color when mobile */
     /* [x] la cruz cuando se crea js queda oculta y luego al mostrarse cambia tamaña check */
+    /* [ ] fix wierd things to happen when messages is shown or remove */
 
 }
 
@@ -149,6 +150,7 @@ img, picture, svg, video, canvas{
 
 /* component */
 .todo {
+    
     --_border-color: var(--border-color, var(--clr-divider));
     width: 100%;
     padding-block: 1.25rem 1.125rem;
@@ -375,6 +377,41 @@ header {
     text-align: center;
 }
 
+.messages {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    padding: 1rem;
+    gap: 0.5rem;
+    width: 22rem;
+    flex-direction: column-reverse;
+}
+
+.message {
+    background-color: var(--clr-todo-bg);
+    width: 100%;
+    padding-block: 1rem;
+    padding-inline: 3em 1.5em;
+    border-radius: var(--radius-4);
+    justify-content: space-between;
+    align-items: center;
+    color: var(--clr-text-body);
+    transform: translateX(100%);
+    animation: moveleft 0.5s ease-out forwards;
+    
+    z-index: 59;
+
+    .dismiss {
+        cursor: pointer;
+    }
+}
+
+@keyframes moveleft {
+    100% {
+        transform: translateX(0);
+    }
+}
+
 
 @media (max-width: 40rem) {
 
@@ -472,7 +509,16 @@ header {
 
     .drag {
         margin-top: calc(2rem + 28px);
-      }
+    }
+
+    /* messages */
+    .messages {
+        top: unset;
+        bottom: 2rem;
+        right: 0;
+        padding: 1rem;
+        gap: 0.5rem;
+    }
   }
 
 .attribution { font-size: 11px; text-align: center; }
