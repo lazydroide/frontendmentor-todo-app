@@ -2,11 +2,15 @@ const inputTodo = document.getElementById('todo');
 const todoForm = document.getElementById('newtodo');
 
 const todosContainer = document.getElementById('todos-container');
-const todosElements = todosContainer.querySelectorAll('.todo'); 
-
-const messagesContainer = document.getElementById('messages');
+const todosElements = todosContainer.querySelectorAll('.todo');
 
 const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+const filter = document.getElementById('filter');
+const filterBtns = document.querySelectorAll('.btn'); 
+
+const messagesContainer = document.getElementById('messages');
+const messages = document.querySelectorAll('.message');
 
 
 const generateMessage = (msg) => {
@@ -143,7 +147,8 @@ todosElements.forEach( todo => {
     })
 })
 
-// positions
+
+// ==== positions ====
 const positionRequest = (e) => {
     const request = new Request(
         e.target.baseURI + 'positions',
@@ -183,7 +188,7 @@ const updatePosition = (e) => {
 }
 
 
-// drag and drop
+// // ==== drag and drop ====
 
 const setPosition = (e) => {
     const draggingTodo = todosContainer.querySelector('.is-dragging');
@@ -233,15 +238,96 @@ todosContainer.addEventListener('dragover', (e) => {
 
 
 
+
+// ==== filter menu ====
+
+const resetButtonStates = () => {
+  filterBtns.forEach(button => {
+    button.setAttribute('state', 'default');
+  })
+}
+
+const countActives = () => {
+    return [...document.querySelectorAll('.todo:not([checked])')].length;   
+}
+  
+const updateLeft = () => {
+    const left = countActives();
+    document.getElementById('left').textContent = left === 1 ? `${left} item left` : `${left} items left`;
+}
+
+const actives = () => {
+    todosElements.forEach((todo) => {
+        if (todo.hasAttribute('checked')) {
+        todo.classList.add('hidden');
+        } else {
+        todo.classList.remove('hidden');
+        }
+    })
+}
+
+const completed = () => {
+    todosElements.forEach((todo) => {
+      if (todo.hasAttribute('checked')) {
+        todo.classList.remove('hidden');
+      } else {
+        todo.classList.add('hidden');
+      }
+    })
+}
+  
+const alltodos = () => {
+    todosElements.forEach((todo) => {    
+        todo.classList.remove('hidden');
+    })
+}
+
+filter.addEventListener('click', (e) => {
+    if (e.target.className.includes('btn')) {
+      console.log('btn')
+      resetButtonStates();
+      e.target.setAttribute('state', 'clicked');
+    } 
+});
+
+// ==== clear menu ====
+
+
+// ==== messages ====
+
+messages.forEach(message => {
+  message.addEventListener('click', (e) => {
+    if (e.target.className.includes('dismiss')) {
+      e.target.parentNode.remove();
+    }
+  })
+
+  message.addEventListener('touchstart', (e) => {
+    if (e.target.className.includes('dismiss')) {
+      e.target.parentNode.remove();
+    }
+  })
+})
+
+
+
+document.onload = updateLeft();
+
+
+// menu
+//  [x] filter
+//  [ ] visibility vs display:none
+//  [ ] listener para mobile
+//  [ ] clear button
+
+// todos
 // [x] cambiar codigo para que el check se haga mediante js y envie una peticion al servidor para actualizar estado en la base de datos
 // [ ] eliminar console.logs
-// [x] eliminar drag.js
+// [x] eliminar menu.js
+// [x] merge with filter.js
 // [ ] funcion aplicar listeners
 // [x] listeners en mensajes y tactil messages
 // [x] aplicar css a mobile messages
-
-
-
 //  [x] drag and drop
 //  [x] drag and drop mobile e.clientY en mobile
 //  [x] drag and drop mobile checks not working (preventdefault vs long touch)
