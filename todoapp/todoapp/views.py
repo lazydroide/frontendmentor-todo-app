@@ -48,10 +48,17 @@ def delete(request, pk):
         if _delete[0]:
             if(updatePositions(request, pk)):
                 return JsonResponse({'status': True}, status='200') 
-    
-    # if something goes wrong render index and send a message
+            
     return JsonResponse({'status': False}, status='404') 
 
+def clear(request):
+    _delete = Todo.objects.filter(checked=True).delete()
+    if _delete[0]:
+        return JsonResponse({'status': True}, status='200') 
+    
+    if _delete[0] == 0:
+        return JsonResponse({'status': False, 'msg': 'No completed TODOs'}, status='201') 
+    return JsonResponse({'status': False}, status='404') 
 
-# [ ] implement messages
+# [x] implement messages
 # [ ] minify, css and js https://django-compressor.readthedocs.io/en/latest/quickstart.html

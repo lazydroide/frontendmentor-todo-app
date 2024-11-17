@@ -243,6 +243,7 @@ body {
     display: grid;
     place-content: center;
     background-color: var(--clr-body-bg);
+    overflow: hidden;
 }
 
 body::before {
@@ -364,6 +365,7 @@ header {
     }
 
     .clear {
+        cursor: pointer;
         border: none;
         background-color: transparent;
         color: var(--clr-text-menu);

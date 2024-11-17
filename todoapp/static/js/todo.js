@@ -12,6 +12,9 @@ const filterBtns = document.querySelectorAll('.btn');
 const messagesContainer = document.getElementById('messages');
 const messages = document.querySelectorAll('.message');
 
+const clearBtn = document.getElementById('clear');
+
+
 
 const generateMessage = (msg) => {
     const message = document.createElement('article');
@@ -103,17 +106,6 @@ todoForm.addEventListener('submit', (e) => {
     })  
 })
 
-// todosElements.forEach( todo => {
-//     todo.addEventListener('click', (e) => {
-//         if (e.target.className.includes('cross')) {
-//             deleteTodo(todo, e.target.baseURI, todo.id); 
-//         } else if (e.target.className.includes('check')) {
-//             updateTodo(todo, e.target.baseURI, todo.id);
-//         } else {
-//             console.log('nothing')
-//         }
-//     })
-// })
 
 
 // ==== positions ====
@@ -154,6 +146,7 @@ const updatePosition = (e) => {
         }
     });
 }
+
 
 
 // // ==== drag and drop ====
@@ -278,6 +271,20 @@ filter.addEventListener('touchstart', (e) => {
 
 // ==== clear menu ====
 
+clearBtn.addEventListener('click', (e) => {
+    fetch(e.target.baseURI + 'clear')
+    .then(response => response.json())
+    .then(response => {
+        if (response.status === true) {
+            todosContainer.querySelectorAll('.todo').forEach((todo) => {
+                if (todo.hasAttribute('checked')) { todo.remove(); }
+              })
+        } else {
+            const msg = response.msg || 'Something go wrong!';
+            generateMessage(msg);
+        }
+     })
+})
 
 // ==== messages ====
 
