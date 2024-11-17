@@ -19,17 +19,7 @@ const generateMessage = (msg) => {
     message.classList.add('row');
     message.innerHTML = `<p class="text-message text-body">${msg}</p><div class="dismiss">X</div>`;
     
-    message.addEventListener('click', (e) => {
-        if (e.target.className.includes('dismiss')) {
-        e.target.parentNode.remove();
-        }
-    })
-    
-    message.addEventListener('touchstart', (e) => {
-        if (e.target.className.includes('dismiss')) {
-        e.target.parentNode.remove();
-        }
-    })
+    applyMessageListeners(message);
       
     messagesContainer.appendChild(message);
 }
@@ -46,29 +36,7 @@ const generateTodo = (task, id) => {
                             <img src="../static/img/icon-cross.svg" alt="" class="cross">
                         </div>`
 
-    newTodo.addEventListener('click', (e) => {
-        if (e.target.className.includes('cross')) {
-            deleteTodo(newTodo, e.target.baseURI, newTodo.id); 
-        } else if (e.target.className.includes('check')) {
-            updateTodo(newTodo, e.target.baseURI, newTodo.id);
-        } else {
-            console.log('nothing')
-        }
-    })
-    newTodo.addEventListener('dragstart', () => {
-        newTodo.classList.add('is-dragging');
-    })
-    newTodo.addEventListener('dragend', () => {
-        newTodo.classList.remove('is-dragging');
-    })
-
-    newTodo.addEventListener('touchstart', (e) => { 
-        newTodo.classList.add('is-dragging');
-    })
-    newTodo.addEventListener('touchend', () => {
-        newTodo.classList.remove('is-dragging');
-    });
-
+    addTodoListeners(newTodo);
 
     return newTodo;
 }
@@ -135,17 +103,17 @@ todoForm.addEventListener('submit', (e) => {
     })  
 })
 
-todosElements.forEach( todo => {
-    todo.addEventListener('click', (e) => {
-        if (e.target.className.includes('cross')) {
-            deleteTodo(todo, e.target.baseURI, todo.id); 
-        } else if (e.target.className.includes('check')) {
-            updateTodo(todo, e.target.baseURI, todo.id);
-        } else {
-            console.log('nothing')
-        }
-    })
-})
+// todosElements.forEach( todo => {
+//     todo.addEventListener('click', (e) => {
+//         if (e.target.className.includes('cross')) {
+//             deleteTodo(todo, e.target.baseURI, todo.id); 
+//         } else if (e.target.className.includes('check')) {
+//             updateTodo(todo, e.target.baseURI, todo.id);
+//         } else {
+//             console.log('nothing')
+//         }
+//     })
+// })
 
 
 // ==== positions ====
@@ -213,7 +181,17 @@ const setPositionMobile = (e) => {
     todosContainer.insertBefore(draggingTodo, nextTodo);
 }
 
-todosElements.forEach( todo => {
+const addTodoListeners = (todo) => {
+    todo.addEventListener('click', (e) => {
+        if (e.target.className.includes('cross')) {
+            deleteTodo(todo, e.target.baseURI, todo.id); 
+        } else if (e.target.className.includes('check')) {
+            updateTodo(todo, e.target.baseURI, todo.id);
+        } else {
+            console.log('nothing')
+        }
+    })
+
     todo.addEventListener('dragstart', () => {
         todo.classList.add('is-dragging');
     })
@@ -228,7 +206,9 @@ todosElements.forEach( todo => {
     todo.addEventListener('touchend', (e) => {
         todo.classList.remove('is-dragging');
     });
-})
+}
+
+todosElements.forEach( todo => { addTodoListeners(todo) })
 
 
 todosContainer.addEventListener('touchmove', setPositionMobile)
@@ -259,9 +239,9 @@ const updateLeft = () => {
 const actives = () => {
     todosElements.forEach((todo) => {
         if (todo.hasAttribute('checked')) {
-        todo.classList.add('hidden');
+            todo.classList.add('hidden');
         } else {
-        todo.classList.remove('hidden');
+            todo.classList.remove('hidden');
         }
     })
 }
@@ -284,7 +264,13 @@ const alltodos = () => {
 
 filter.addEventListener('click', (e) => {
     if (e.target.className.includes('btn')) {
-      console.log('btn')
+      resetButtonStates();
+      e.target.setAttribute('state', 'clicked');
+    } 
+});
+
+filter.addEventListener('touchstart', (e) => {
+    if (e.target.className.includes('btn')) {
       resetButtonStates();
       e.target.setAttribute('state', 'clicked');
     } 
@@ -295,19 +281,21 @@ filter.addEventListener('click', (e) => {
 
 // ==== messages ====
 
-messages.forEach(message => {
-  message.addEventListener('click', (e) => {
-    if (e.target.className.includes('dismiss')) {
-      e.target.parentNode.remove();
-    }
-  })
+const applyMessageListeners = (message) => {
+    message.addEventListener('click', (e) => {
+        if (e.target.className.includes('dismiss')) {
+          e.target.parentNode.remove();
+        }
+      })
+    
+      message.addEventListener('touchstart', (e) => {
+        if (e.target.className.includes('dismiss')) {
+          e.target.parentNode.remove();
+        }
+      })
+}
 
-  message.addEventListener('touchstart', (e) => {
-    if (e.target.className.includes('dismiss')) {
-      e.target.parentNode.remove();
-    }
-  })
-})
+messages.forEach(message => { applyMessageListeners(message) });
 
 
 
@@ -316,7 +304,7 @@ document.onload = updateLeft();
 
 // menu
 //  [x] filter
-//  [ ] visibility vs display:none
+//  [x] visibility vs display:none
 //  [ ] listener para mobile
 //  [ ] clear button
 
@@ -325,7 +313,7 @@ document.onload = updateLeft();
 // [ ] eliminar console.logs
 // [x] eliminar menu.js
 // [x] merge with filter.js
-// [ ] funcion aplicar listeners
+// [x] funcion aplicar listeners
 // [x] listeners en mensajes y tactil messages
 // [x] aplicar css a mobile messages
 //  [x] drag and drop
