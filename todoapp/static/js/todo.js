@@ -63,6 +63,7 @@ const deleteTodo = (todo, url, id) => {
                     if (todosContainer.querySelectorAll('.todo').length === 0) {
                         todosContainer.innerHTML = `<div class="not-todos">You don't hava any TODO yet Xd</div>`
                     }
+                    updateLeft();
                 }else{
                     generateMessage('Something go wrong!');
                 }  
@@ -79,6 +80,7 @@ const updateTodo = (todo, url, id) => {
                     } else {
                         todo.removeAttribute('checked')
                     }
+                    updateLeft();
                 }else{
                     generateMessage('Something go wrong!');
                 }  
@@ -100,6 +102,7 @@ todoForm.addEventListener('submit', (e) => {
 
             todosContainer.appendChild(generateTodo(inputTodo.value, response.id));
             inputTodo.value = '';
+            updateLeft();
         }else{
             generateMessage('Something go wrong!');
         }  
@@ -230,7 +233,7 @@ const updateLeft = () => {
 }
 
 const actives = () => {
-    todosElements.forEach((todo) => {
+    todosContainer.querySelectorAll('.todo').forEach((todo) => {
         if (todo.hasAttribute('checked')) {
             todo.classList.add('hidden');
         } else {
@@ -240,7 +243,7 @@ const actives = () => {
 }
 
 const completed = () => {
-    todosElements.forEach((todo) => {
+    todosContainer.querySelectorAll('.todo').forEach((todo) => {
       if (todo.hasAttribute('checked')) {
         todo.classList.remove('hidden');
       } else {
@@ -250,7 +253,7 @@ const completed = () => {
 }
   
 const alltodos = () => {
-    todosElements.forEach((todo) => {    
+    todosContainer.querySelectorAll('.todo').forEach((todo) => {    
         todo.classList.remove('hidden');
     })
 }
@@ -279,6 +282,9 @@ clearBtn.addEventListener('click', (e) => {
             todosContainer.querySelectorAll('.todo').forEach((todo) => {
                 if (todo.hasAttribute('checked')) { todo.remove(); }
               })
+            if (todosContainer.querySelectorAll('.todo').length === 0) {
+                todosContainer.innerHTML = `<div class="not-todos">You don't hava any TODO yet Xd</div>`
+            }
         } else {
             const msg = response.msg || 'Something go wrong!';
             generateMessage(msg);
@@ -312,8 +318,9 @@ document.onload = updateLeft();
 // menu
 //  [x] filter
 //  [x] visibility vs display:none
-//  [ ] listener para mobile
-//  [ ] clear button
+//  [x] listener para mobile
+//  [x] clear button
+//  [ ] actualizar left
 
 // todos
 // [x] cambiar codigo para que el check se haga mediante js y envie una peticion al servidor para actualizar estado en la base de datos
