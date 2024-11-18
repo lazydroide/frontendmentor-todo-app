@@ -1,4 +1,4 @@
-{% load static %}
+{% load compress static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static "./images/favicon-32x32.png" %}">
     <title>Frontend | TodoApp</title>
-    <script defer src="{% static "js/todo.js" %}"></script>
-    <script defer src="{% static "js/theme.js" %}"></script>
-    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    {% compress js %}
+        <script defer src="{% static "js/todo.js" %}"></script>
+        <script defer src="{% static "js/theme.js" %}"></script>
+    {% endcompress js %}
+
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "css/style.css" %}">
+    {% endcompress %}
 </head>
 <body>
     <main class="column">

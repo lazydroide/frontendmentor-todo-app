@@ -61,4 +61,6 @@ def clear(request):
     return JsonResponse({'status': False}, status='404') 
 
 # [x] implement messages
-# [ ] minify, css and js https://django-compressor.readthedocs.io/en/latest/quickstart.html
+# [x] minify, css and js https://django-compressor.readthedocs.io/en/latest/quickstart.html
+# [ ] messages, eliminate or fix
+
