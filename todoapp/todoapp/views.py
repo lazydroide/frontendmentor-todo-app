@@ -9,7 +9,7 @@ from todos.utils import updatePositions
 
 
 def index(request):
-    messages.success(request, 'Bienvenido!!')
+    # messages.success(request, 'Bienvenido!!')
     return render(request, 'index.html', {
         'todos': Todo.objects.all().order_by('position')
     })
@@ -59,8 +59,4 @@ def clear(request):
     if _delete[0] == 0:
         return JsonResponse({'status': False, 'msg': 'No completed TODOs'}, status='201') 
     return JsonResponse({'status': False}, status='404') 
-
-# [x] implement messages
-# [x] minify, css and js https://django-compressor.readthedocs.io/en/latest/quickstart.html
-# [ ] messages, eliminate or fix
 

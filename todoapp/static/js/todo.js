@@ -59,13 +59,13 @@ const deleteTodo = (todo, url, id) => {
             .then(response => {
                 if (response.status === true){
                     todo.remove();
-                    generateMessage('Todo borrado!!!')
+                    // generateMessage('Todo borrado!!!')
                     if (todosContainer.querySelectorAll('.todo').length === 0) {
                         todosContainer.innerHTML = `<div class="not-todos">You don't hava any TODO yet Xd</div>`
                     }
                     updateLeft();
                 }else{
-                    generateMessage('Something go wrong!');
+                    // generateMessage('Something go wrong!');
                 }  
             })    
 }
@@ -82,7 +82,7 @@ const updateTodo = (todo, url, id) => {
                     }
                     updateLeft();
                 }else{
-                    generateMessage('Something go wrong!');
+                    // generateMessage('Something go wrong!');
                 }  
             })    
 }
@@ -104,7 +104,7 @@ todoForm.addEventListener('submit', (e) => {
             inputTodo.value = '';
             updateLeft();
         }else{
-            generateMessage('Something go wrong!');
+            // generateMessage('Something go wrong!');
         }  
     })  
 })
@@ -142,10 +142,10 @@ const updatePosition = (e) => {
     .then(response => response.json())
     .then(response => {
         if (response.status === true) {
-            console.log(response)
+            // console.log(response)
 
         } else {
-            generateMessage('Something go wrong!');
+            // generateMessage('Something go wrong!');
         }
     });
 }
@@ -174,8 +174,11 @@ const setPositionMobile = (e) => {
         return e.targetTouches[0].clientY <= otherTodo.offsetTop + otherTodo.offsetHeight / 2;
     });
     
-    todosContainer.insertBefore(draggingTodo, nextTodo);
+    todosContainer.insertBefore(draggingTodo, nextTodo);    
+    dragging = true;
 }
+
+var dragging = false;
 
 const addTodoListeners = (todo) => {
     todo.addEventListener('click', (e) => {
@@ -184,7 +187,7 @@ const addTodoListeners = (todo) => {
         } else if (e.target.className.includes('check')) {
             updateTodo(todo, e.target.baseURI, todo.id);
         } else {
-            console.log('nothing')
+            
         }
     })
 
@@ -201,13 +204,19 @@ const addTodoListeners = (todo) => {
     })
     todo.addEventListener('touchend', (e) => {
         todo.classList.remove('is-dragging');
+        if (dragging) {
+            updatePosition(e);
+            dragging = false;
+        }
     });
 }
 
 todosElements.forEach( todo => { addTodoListeners(todo) })
 
 
-todosContainer.addEventListener('touchmove', setPositionMobile)
+todosContainer.addEventListener('touchmove', (e) => {    
+    setPositionMobile(e); 
+})
 todosContainer.addEventListener('dragover', (e) => {
     setPosition(e);
 })
@@ -287,7 +296,7 @@ clearBtn.addEventListener('click', (e) => {
             }
         } else {
             const msg = response.msg || 'Something go wrong!';
-            generateMessage(msg);
+            // generateMessage(msg);
         }
      })
 })
@@ -313,24 +322,3 @@ messages.forEach(message => { applyMessageListeners(message) });
 
 
 document.onload = updateLeft();
-
-
-// menu
-//  [x] filter
-//  [x] visibility vs display:none
-//  [x] listener para mobile
-//  [x] clear button
-//  [ ] actualizar left
-
-// todos
-// [x] cambiar codigo para que el check se haga mediante js y envie una peticion al servidor para actualizar estado en la base de datos
-// [ ] eliminar console.logs
-// [x] eliminar menu.js
-// [x] merge with filter.js
-// [x] funcion aplicar listeners
-// [x] listeners en mensajes y tactil messages
-// [x] aplicar css a mobile messages
-//  [x] drag and drop
-//  [x] drag and drop mobile e.clientY en mobile
-//  [x] drag and drop mobile checks not working (preventdefault vs long touch)
-//  [x] enviar actualizacion de posicion al servidor para que la guarde y la muestre correctamente en reload.

@@ -64,14 +64,10 @@ img, picture, svg, video, canvas{
     --radius-4: 4px;
     --radius-8: 8px;
 
-    /* [ ] 2px dark 1px light */
-    /* [ ] box shadow */
-    /* [ ] border bg-main color when mobile */
-    /* [x] la cruz cuando se crea js queda oculta y luego al mostrarse cambia tamaña check */
-    /* [ ] fix wierd things to happen when messages is shown or remove */
-
 }
 
+
+/* themes */
 .dark {
     --clr-body-bg: hsl(235, 21%, 11%);
     --clr-todo-bg: hsl(235, 24%, 19%);
@@ -82,10 +78,14 @@ img, picture, svg, video, canvas{
     --clr-text-filter: hsl(234, 11%, 52%);  
     --clr-text-filter-hover: #FFFFFF;
 
-    --clr-divider: hsl(233, 14%, 35%);
+    --clr-text-body-checked: hsl(233, 14%, 35%);
+    --clr-divider: hsl(237, 14%, 26%);
+
+    --clr-box-shadow: rgba(0, 0, 0, .15);
 
     --bg-img: url(../img/bg-desktop-dark.jpg);
     --icon: url(../img/icon-sun.svg);
+    --spacing: 2px;
 }
 
 .light {
@@ -98,10 +98,15 @@ img, picture, svg, video, canvas{
     --clr-text-filter: hsl(236, 9%, 61%);  
     --clr-text-filter-hover: hsl(235, 19%, 35%);
 
+    --clr-text-body-checked: hsl(236, 9%, 61%);
     --clr-divider: hsl(233, 11%, 84%);    
+
+    --clr-box-shadow: rgba(210, 211, 219, .45);
 
     --bg-img: url(../img/bg-desktop-light.jpg);
     --icon: url(../img/icon-moon.svg);
+    
+    --spacing: 1px;
 }
 
 /* typography classes */
@@ -164,7 +169,8 @@ img, picture, svg, video, canvas{
     gap: 1.5rem;
     align-items: center;
 
-    &:hover {
+    &:hover, 
+    &:focus {
         cursor: pointer;
         
         .delete {
@@ -187,6 +193,11 @@ img, picture, svg, video, canvas{
             background-position: center;
             background-repeat: no-repeat;
         }
+
+        .task {
+            color: var(--clr-text-body-checked);
+            text-decoration: line-through;
+        }
     }
 
     .check-border {
@@ -201,9 +212,6 @@ img, picture, svg, video, canvas{
             background: var(--gradient);
         }
 
-        /* &[checked] {
-            background: var(--gradient);
-        } */
     }
 
     .check {        
@@ -211,14 +219,6 @@ img, picture, svg, video, canvas{
         height: 21px;
         border-radius: 50%;
         background-color: var(--clr-todo-bg);  
-
-       
-        /* &[checked] {
-            background: var(--gradient);
-            background-image: url(../img/icon-check.svg);
-            background-position: center;
-            background-repeat: no-repeat;
-        }    */
         
     }
 
@@ -235,6 +235,12 @@ img, picture, svg, video, canvas{
     }
 }
 
+    /* when touchscreen cross on todo to delete them visible */
+@media (hover: none) {
+    .todo .delete {
+        visibility: visible;
+    }
+}
 
 /* ============== */
 
@@ -260,13 +266,13 @@ body::before {
 
 main {
     gap: 1.5rem;
-    padding-block: 2.5rem;
+    padding-block: 1.5rem 2.5rem;
     padding-inline: 2.5rem;
     width: min(38.75rem, 100vw);
 }
 
 header {
-    padding-block: 0.5rem 0.8125rem;
+    padding-block: 2.5rem 0.8125rem;
     width: 100%;
     justify-content: space-between;
     align-items: center;
@@ -279,7 +285,6 @@ header {
         cursor: pointer;        
     }
 }
-
 
 .newtodo {
     width: 100%;
@@ -320,6 +325,7 @@ header {
 
 .todos {
     border-radius: var(--radius-4);
+    box-shadow: 0px 24px 20px 13px var(--clr-box-shadow);
 
     .not-todos {
         width: 100%;
@@ -335,17 +341,16 @@ header {
         padding-block: 1.125rem;
         padding-inline: 1.5rem;        
         background-color: var(--clr-todo-bg);
-        justify-content: space-between;
-
-        
+        justify-content: space-between;        
     }
 
     .filter-menu {                
-        background-color: var(--clr-todo-bg);              
+        background-color: var(--clr-todo-bg);          
 
         fieldset {
             border: none;
-            gap: 1.25rem;  
+            justify-content: center;
+            gap: 2rem;
 
             .btn {
                 appearance: none;
@@ -382,6 +387,7 @@ header {
     padding-top: 1.75rem;
     text-align: center;
 }
+
 
 .messages {
     position: absolute;
@@ -446,6 +452,10 @@ header {
         padding-block: 1rem;
         padding-inline: 1.25rem;
         gap: 0.75rem;
+
+        .delete {
+            visibility: visible;
+        }
     
         .check-border {
             width: 20px;
@@ -462,6 +472,7 @@ header {
 
     body {
         place-content: start;
+        overflow: hidden;
     }
     
     body::before {
@@ -475,7 +486,7 @@ header {
     
     main {
         gap: 1rem;
-        padding-block: 2.5rem;
+        padding-block: 0.5rem 2.5rem;
         padding-inline: 1.5rem;
         width: 100vw;
     }  
@@ -506,8 +517,6 @@ header {
 
         fieldset {
             height: 100%;
-            justify-content: center;
-            gap: 3rem;
             align-items: center;
         }        
       }      
@@ -529,5 +538,3 @@ header {
 
 .attribution { font-size: 11px; text-align: center; }
 .attribution a { color: hsl(228, 45%, 44%); }
-
-/* [ ] afinar maquetado con figma */
